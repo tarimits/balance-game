@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>天秤で学ぶ足し算・引き算</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>天秤で学ぶ足し算・引き算</h1>
+    <div class="balance-container">
+        <div class="plate left" id="left-plate" ondrop="drop(event, 'left')" ondragover="allowDrop(event)">
+            <div class="plate-content" id="left-content"></div>
+        </div>
+        <div class="plate right" id="right-plate" ondrop="drop(event, 'right')" ondragover="allowDrop(event)">
+            <div class="plate-content" id="right-content"></div>
+        </div>
+    </div>
+    <div class="result" id="result-display">左 0 = 右 0</div>
+    <button class="reset-button" onclick="resetBalance()">リセット</button>
+    <div class="numbers">
+        <div class="number" draggable="true" ondragstart="drag(event)" data-value="1">1</div>
+        <div class="number" draggable="true" ondragstart="drag(event)" data-value="2">2</div>
+        <div class="number" draggable="true" ondragstart="drag(event)" data-value="3">3</div>
+        <div class="number" draggable="true" ondragstart="drag(event)" data-value="4">4</div>
+        <div class="number" draggable="true" ondragstart="drag(event)" data-value="5">5</div>
+        <div class="number" draggable="true" ondragstart="drag(event)" data-value="6">6</div>
+        <div class="number" draggable="true" ondragstart="drag(event)" data-value="7">7</div>
+        <div class="number" draggable="true" ondragstart="drag(event)" data-value="8">8</div>
+        <div class="number" draggable="true" ondragstart="drag(event)" data-value="9">9</div>
+        <div class="number" draggable="true" ondragstart="drag(event)" data-value="10">10</div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
