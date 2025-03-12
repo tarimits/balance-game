@@ -1,34 +1,39 @@
 let leftWeight = 0, rightWeight = 0;
+let selectedValue = null;
+let selectedElement = null;
 
-// ドロップを許可
-function allowDrop(event) {
-    event.preventDefault();
+// 数字をタップで選択
+function selectNumber(event) {
+    if (selectedElement) {
+        selectedElement.classList.remove("selected");
+    }
+    selectedElement = event.target;
+    selectedValue = parseInt(event.target.getAttribute("data-value"));
+    selectedElement.classList.add("selected");
 }
 
-// ドラッグ開始時の処理
-function drag(event) {
-    event.dataTransfer.setData("value", event.target.getAttribute("data-value"));
-}
+// プレートをタップして数字を追加
+function placeNumber(side) {
+    if (!selectedValue) return;
 
-// ドロップ時の処理
-function drop(event, side) {
-    event.preventDefault();
-    let value = parseInt(event.dataTransfer.getData("value"));
-
-    // ドロップされた数字をプレートに表示
     let contentArea = document.getElementById(`${side}-content`);
     let numberElement = document.createElement('div');
     numberElement.className = 'number-on-plate';
-    numberElement.textContent = value;
+    numberElement.textContent = selectedValue;
     contentArea.appendChild(numberElement);
 
     // 重さを加算
     if (side === 'left') {
-        leftWeight += value;
+        leftWeight += selectedValue;
     } else {
-        rightWeight += value;
+        rightWeight += selectedValue;
     }
     updatePlates();
+
+    // 選択解除
+    selectedElement.classList.remove("selected");
+    selectedElement = null;
+    selectedValue = null;
 }
 
 // プレートの動きを更新（重い方が下に下がる）
@@ -36,7 +41,7 @@ function updatePlates() {
     let leftPlate = document.getElementById("left-plate");
     let rightPlate = document.getElementById("right-plate");
 
-    let maxShift = 40; // 最大移動距離
+    let maxShift = 50; // 最大移動距離
 
     // 重い方を下に
     leftPlate.style.top = `${50 + Math.max(0, (leftWeight - rightWeight) / 2 * maxShift / 10)}px`;
@@ -58,5 +63,10 @@ function resetBalance() {
     document.getElementById("left-content").innerHTML = '';
     document.getElementById("right-content").innerHTML = '';
 
+    if (selectedElement) {
+        selectedElement.classList.remove("selected");
+    }
+    selectedElement = null;
+    selectedValue = null;
     updatePlates();
 }
