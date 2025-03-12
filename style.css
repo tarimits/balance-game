@@ -47,9 +47,13 @@ body {
     line-height: 40px;
     background-color: lightblue;
     margin: 5px;
-    cursor: grab;
+    cursor: pointer;
     user-select: none;
     border-radius: 5px;
+}
+
+.number.selected {
+    background-color: yellow !important;
 }
 
 .number-on-plate {
